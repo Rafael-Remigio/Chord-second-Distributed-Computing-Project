@@ -10,7 +10,7 @@ from unittest.mock import patch, MagicMock
 def node():
     node = DHTNode(("localhost", 4000), ("localhost", 5000))
     node.start()
-    time.sleep(3)
+    time.sleep(6)
     yield node
     node.done = True
     node.join()
@@ -20,7 +20,7 @@ def node():
 def node1():
     node = DHTNode(("localhost", 6000), ("localhost", 5000))
     node.start()
-    time.sleep(3)
+    time.sleep(6)
     yield node
     node.done = True
     node.join()
@@ -30,7 +30,7 @@ def node1():
 def node2():
     node = DHTNode(("localhost", 3000), ("localhost", 5000))
     node.start()
-    time.sleep(10)
+    time.sleep(15)
     yield node
     node.done = True
     node.join()
@@ -44,8 +44,22 @@ def client():
 def test_put_keystore(node, client):
     assert client.put("10", "Aveiro")
 
+    assert node.predecessor_id == 260
     assert node.identification == 581
     assert node.successor_id == 654
+
+    assert node.finger_table.as_list == [
+        (654, ('localhost', 5004)), 
+        (654, ('localhost', 5004)), 
+        (654, ('localhost', 5004)), 
+        (654, ('localhost', 5004)), 
+        (654, ('localhost', 5004)), 
+        (654, ('localhost', 5004)), 
+        (654, ('localhost', 5004)), 
+        (752, ('localhost', 3000)), 
+        (895, ('localhost', 6000)), 
+        (257, ('localhost', 5003))
+    ] 
 
     assert node.keystore == {"10": "Aveiro"}
 
