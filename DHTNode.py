@@ -11,36 +11,63 @@ class FingerTable:
 
     def __init__(self, node_id, node_addr, m_bits=10):
         """ Initialize Finger Table."""
-        pass
+        self.node_id = node_id
+        self.node_addr = node_addr
+        self.m_bits = m_bits
+        self.finger = [(node_id, node_addr) for _ in range(m_bits)]
+
 
     def fill(self, node_id, node_addr):
         """ Fill all entries of finger_table with node_id, node_addr."""
-        pass
+        for i in range(0,self.m_bits):
+            self.finger[i] = (node_id,node_addr)
 
     def update(self, index, node_id, node_addr):
         """Update index of table with node_id and node_addr."""
-        pass
+        self.finger[index - 1] = (node_id,node_addr); 
+        
 
     def find(self, identification):
         """ Get node address of closest preceding node (in finger table) of identification. """
-        pass
+        i=0
+        for i in range(0,self.m_bits - 1):
+            if contains(self.node_id, self.finger[i+1][0], identification): 
+                return self.finger[i][1]
+
+        return self.finger[self.m_bits -1][1]
+
 
     def refresh(self):
         """ Retrieve finger table entries."""
-        pass
+        newList = [(None,None,None) for _ in range(self.m_bits)] 
+        for i in range(self.m_bits):
+            here = (self.node_id + 2**(i + 1-1)) % 2**self.m_bits
+            newList[i] = (i+1,here,self.finger[i][1])
+        
+        return newList
 
     def getIdxFromId(self, id):
-        pass
+        for i in range(0,self.m_bits + 1):
+            if ((self.node_id + 2**(i-1)) % 2**self.m_bits) == id:
+                return i
+        return None
 
     def __repr__(self):
-        pass
+        return "uwuwuwu"
 
     @property
     def as_list(self):
         """return the finger table as a list of tuples: (identifier, (host, port)).
         NOTE: list index 0 corresponds to finger_table index 1
         """
-        pass
+        newList = [(None,None) for _ in range(self.m_bits)] 
+        for i in range(0,self.m_bits):
+            newList[i] = self.finger[i]
+            
+        return newList
+
+
+        
 
 class DHTNode(threading.Thread):
     """ DHT Node Agent. """
