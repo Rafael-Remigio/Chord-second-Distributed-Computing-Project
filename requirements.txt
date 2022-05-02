@@ -1,6 +1,15 @@
+<<<<<<< HEAD
 pytest-reportlog
 mockselector
 mock
 pytest
 freezegun
 pexpect
+=======
+pytest-reportlog
+mockselector
+mock
+pytest
+freezegun
+pexpect
+>>>>>>> upstream/master
