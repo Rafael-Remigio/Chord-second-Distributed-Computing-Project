@@ -10,12 +10,12 @@ def client():
 
 def test_put_local(client):
     """ add object to DHT (this key is in first node -> local search) """
-    assert client.put("1", [0, 1, 2])
+    assert client.put("A", [0, 1, 2])
 
 
 def test_get_local(client):
     """ retrieve from DHT (this key is in first node -> local search) """
-    assert client.get("1") == [0, 1, 2]
+    assert client.get("A") == [0, 1, 2]
 
 
 def test_put_remote(client):

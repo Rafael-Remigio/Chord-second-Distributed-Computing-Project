@@ -38,9 +38,9 @@ class DHTClient:
 if __name__ == "__main__":
     client = DHTClient(("localhost", 5000))
     # add object to DHT (this key is in first node -> local search)
-    client.put("1", [0, 1, 2])
+    client.put("A", [0, 1, 2])
     # retrieve from DHT (this key is in first node -> local search)
-    print(client.get("1"))
+    print(client.get("A"))
 
     # add object to DHT (this key is not on the first node -> remote search)
     client.put("2", ("xpto"))
